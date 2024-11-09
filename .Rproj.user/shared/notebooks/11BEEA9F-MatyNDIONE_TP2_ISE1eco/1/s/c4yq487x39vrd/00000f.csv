@@ -1,0 +1,6 @@
+"0","base_tp2$sit_mat = dplyr::recode_factor(base_tp2$sit_mat,"
+"0","                     '1'=""Marie(e)"", "
+"0","                     '3'=""Veuf(ve)"", "
+"0","                     '4'=""Divorce(e)"", "
+"0","                     '5'=""Separe(e)"", "
+"0","                     '6'=""Celibataire"")"

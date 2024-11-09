@@ -1,0 +1,5 @@
+"0","```r
+new_acp <- PCA(iris[,1:4], ncp = Inf, graph = FALSE)
+cah <- HCPC(new_acp, nb.clust = -1, graph = FALSE)
+plot(cah, choice = \"tree\")
+```"

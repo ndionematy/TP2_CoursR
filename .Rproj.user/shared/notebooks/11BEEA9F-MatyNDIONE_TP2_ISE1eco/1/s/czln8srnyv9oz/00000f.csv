@@ -1,0 +1,6 @@
+"0","YesNo = function(data, var){"
+"0","  data[[var]] = dplyr::recode_factor(data[[var]],"
+"0","                     '0'=""Non"","
+"0","                     '1'=""Oui"","
+"0","                     .default = ""Missing"")"
+"0","}"

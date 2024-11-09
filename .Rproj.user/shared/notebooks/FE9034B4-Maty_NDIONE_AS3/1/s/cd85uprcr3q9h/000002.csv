@@ -1,0 +1,18 @@
+"0","```r
+cah
+```"
+"1","**Results for the Hierarchical Clustering on Principal Components**
+   name                    description                                             
+1  \"$data.clust\"           \"dataset with the cluster of the individuals\"           
+2  \"$desc.var\"             \"description of the clusters by the variables\"          
+3  \"$desc.var$quanti.var\"  \"description of the cluster var. by the continuous var.\"
+4  \"$desc.var$quanti\"      \"description of the clusters by the continuous var.\"    
+5  \"$desc.axes\"            \"description of the clusters by the dimensions\"         
+6  \"$desc.axes$quanti.var\" \"description of the cluster var. by the axes\"           
+7  \"$desc.axes$quanti\"     \"description of the clusters by the axes\"               
+8  \"$desc.ind\"             \"description of the clusters by the individuals\"        
+9  \"$desc.ind$para\"        \"parangons of each clusters\"                            
+10 \"$desc.ind$dist\"        \"specific individuals\"                                  
+11 \"$call\"                 \"summary statistics\"                                    
+12 \"$call$t\"               \"description of the tree\"                               
+"

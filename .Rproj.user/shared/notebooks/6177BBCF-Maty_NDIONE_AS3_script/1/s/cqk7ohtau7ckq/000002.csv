@@ -1,0 +1,4 @@
+"0","```r
+# Affichage des 6 premières lignes
+head(base)
+```"

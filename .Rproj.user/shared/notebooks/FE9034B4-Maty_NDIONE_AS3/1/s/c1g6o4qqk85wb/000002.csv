@@ -1,0 +1,5 @@
+"0","```r
+# obtention d'un tableau par groupe
+tab <- summarizeClusters(data, matrice_gp, dec = 2)
+tab
+```"

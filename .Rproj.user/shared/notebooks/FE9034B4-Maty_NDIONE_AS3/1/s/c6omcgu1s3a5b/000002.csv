@@ -1,0 +1,4 @@
+"0","```r
+# Display dendrogram
+plot(hc, labels = FALSE, main = \"Dendrogramme\")
+```"

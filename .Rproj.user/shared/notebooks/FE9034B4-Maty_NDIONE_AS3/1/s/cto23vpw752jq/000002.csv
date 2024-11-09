@@ -1,0 +1,5 @@
+"0","```r
+best.cutree(hc, min = 2, graph = TRUE, xlab = \"Nombre de classes\", ylab = \"Inertie relative\")
+```"
+"1","[1] 2
+"

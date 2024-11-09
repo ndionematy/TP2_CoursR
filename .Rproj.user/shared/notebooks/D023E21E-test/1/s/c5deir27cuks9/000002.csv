@@ -1,0 +1,6 @@
+"0","```r
+library(ggplot2)
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() + geom_smooth()
+```"

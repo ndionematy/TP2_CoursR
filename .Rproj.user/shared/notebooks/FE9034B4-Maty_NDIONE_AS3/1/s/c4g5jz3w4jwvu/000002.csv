@@ -1,0 +1,4 @@
+"0","```r
+# Distance matrix
+dis <- dist(iris[,1:4], method = \"euclidean\")
+```"

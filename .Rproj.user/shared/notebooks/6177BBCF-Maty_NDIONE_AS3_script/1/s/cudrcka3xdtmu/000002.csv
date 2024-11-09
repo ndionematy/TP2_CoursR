@@ -1,0 +1,4 @@
+"0","```r
+# Données
+dataset <- read.csv(\"basketball_player_allstar.csv\")
+```"

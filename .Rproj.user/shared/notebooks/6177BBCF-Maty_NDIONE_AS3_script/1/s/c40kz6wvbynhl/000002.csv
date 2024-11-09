@@ -1,0 +1,10 @@
+"0","```r
+# k-medioids clustering
+kmid <- pam(data, k = 4)
+
+# view results
+kmid
+
+# plot results of final k-medoids model
+fviz_cluster(kmid, data = data)
+```"

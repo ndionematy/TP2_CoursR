@@ -1,0 +1,4 @@
+"0","library(readxl)"
+"0",""
+"0","base_tp2 <- read_xlsx(""..//Donnees//Base TP2.xlsx"")"
+"0","head(base_tp2)"

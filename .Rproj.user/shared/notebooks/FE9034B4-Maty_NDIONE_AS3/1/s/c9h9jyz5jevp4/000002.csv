@@ -1,0 +1,4 @@
+"0","```r
+library(cluster)
+ag <- agnes(dis, method = \"ward\")
+```"

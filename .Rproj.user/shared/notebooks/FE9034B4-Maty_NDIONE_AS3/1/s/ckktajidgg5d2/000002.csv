@@ -1,0 +1,4 @@
+"0","```r
+# Default plot
+fviz_dend(hc)
+```"

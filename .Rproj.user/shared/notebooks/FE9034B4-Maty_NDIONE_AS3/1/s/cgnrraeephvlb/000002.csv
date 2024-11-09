@@ -1,0 +1,15 @@
+"0","```r
+# Librairies
+library(factoextra)
+library(cluster)
+
+# Data
+data <- USArrests
+
+# Preprocessing
+data <- na.omit(data)
+data <- scale(data)
+
+# View first six rows
+head(data) 
+```"

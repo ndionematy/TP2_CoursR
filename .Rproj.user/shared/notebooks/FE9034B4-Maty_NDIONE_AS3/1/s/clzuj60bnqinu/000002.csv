@@ -1,0 +1,6 @@
+"0","```r
+# Execute HAC
+library(NbClust)
+
+hc <- hclust(dis, method = \"ward.D2\")
+```"

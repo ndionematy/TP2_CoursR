@@ -1,0 +1,5 @@
+"0","```r
+# Silhouette method
+fviz_nbclust(base, kmeans, method = \"silhouette\")+
+  labs(subtitle = \"Silhouette method\")
+```"

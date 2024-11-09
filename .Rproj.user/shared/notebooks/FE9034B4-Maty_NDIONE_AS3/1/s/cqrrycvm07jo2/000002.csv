@@ -1,0 +1,10 @@
+"0","```r
+library(stats)
+
+plot(hc, labels = FALSE, main = \"Partition en 3, 4 ou 5 classes\",  xlab = \"\", ylab = \"\", sub = \"\", axes = FALSE, hang=-1)
+rect.hclust(hc, 3, border = \"green3\")
+```"
+"0","```r
+rect.hclust(hc, 4, border = \"red3\")
+rect.hclust(hc, 5, border = \"blue3\")
+```"

@@ -1,0 +1,11 @@
+"0","```r
+library(geocmeans)
+
+# création d'une matrice d'appartenance binaire des groupes
+matrice_gp <- fastDummies::dummy_cols(res$cluster, remove_selected_columns = TRUE)
+
+# réalisation du graphique
+par(mfrow=c(3,2), mai = c(0.1,0.1,0.1,0.1))
+plots <- spiderPlots(data, matrice_gp, 
+                     chartcolors = c(\"#EFBE89\", \"#4A6A9F\", \"#7DB47C\", \"#FAF29C\"))
+```"

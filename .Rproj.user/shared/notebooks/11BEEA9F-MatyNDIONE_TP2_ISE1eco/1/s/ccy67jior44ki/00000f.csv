@@ -1,0 +1,3 @@
+"0","base_tp2$sexe = dplyr::recode_factor(base_tp2$sexe,"
+"0","                     '1'=""Homme"", "
+"0","                     '2'=""Femme"")"

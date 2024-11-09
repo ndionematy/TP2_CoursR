@@ -1,0 +1,6 @@
+"0","```r
+# Gap statistic method
+fviz_nbclust(base, kmeans, nstart = 25, method = \"gap_stat\",
+             nboot = 50)+
+  labs(subtitle = \"Gap statistic method\") 
+```"

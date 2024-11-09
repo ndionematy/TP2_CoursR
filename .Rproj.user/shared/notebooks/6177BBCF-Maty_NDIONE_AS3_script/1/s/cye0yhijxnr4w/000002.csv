@@ -1,0 +1,10 @@
+"0","```r
+# Librairie
+library(Gmedian)
+
+# Classification k-medians
+kmed = kGmedian(base)
+
+# Nombre de classes
+fviz_nbclust(base, kGmedian)
+```"

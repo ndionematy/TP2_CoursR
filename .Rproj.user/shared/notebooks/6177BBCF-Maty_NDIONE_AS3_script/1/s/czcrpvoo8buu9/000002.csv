@@ -1,0 +1,21 @@
+"0","```r
+# Librairies
+library(factoextra)
+library(NbClust)
+library(dynamicTreeCut)
+
+# Load iris data
+data(\"iris\")
+
+# Distance matrix
+dis <- dist(iris[,1:4], method = \"euclidean\")
+
+# Execute HAC
+hc <- hclust(dis, method = \"ward.D2\")
+
+# Display dendrogram
+fviz_dend(hc, k = 5,  rect = TRUE, show_labels = FALSE)
+
+# Optimal number using distance cutoff
+# clusters <- cutreeDynamic(hc, distM = hc$height, method = \"distance\")
+```"

@@ -1,0 +1,423 @@
+---
+title: "TP2 - Logiciel statistique R"
+output:
+  pdf_document:
+  html_document:
+    code_folding: show
+    theme:
+      base_font:
+        google: Prompt
+      heading_font:
+        google: Proza Libre
+      version: 3
+  word_document: 
+fontsize: 12pt
+linestretch: 1.25
+---
+
+<!--____________________________________________________________________________
+
+<!---Paramètres des chunks--->
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,
+                      fig.width = 6, fig.height = 5, fig.align='center')
+```
+
+```{=html}
+<style>
+body {
+font-family: Helvetica;
+font-size: 16px;
+text-align: justify;
+}
+
+h1 {
+font-family: Georgia;
+font-size: 35px;
+color: #06027C;
+font-weight: bold;
+text-align: center;
+}
+
+h2 {
+font-family: Georgia;
+font-size: 25px;
+color: #060189;
+font-weight: bold;
+}
+
+h3 {
+font-family: Georgia;
+font-size: 20px;
+color: #050083;
+font-weight: bold;
+}
+</style>
+```
+
+<!--____________________________________________________________________________
+
+<!---Page de garde--->
+\thispagestyle{empty}
+
+<!--____________________________________________________________________________
+
+<!---Table des matières--->
+\newpage
+\thispagestyle{empty}
+\renewcommand{\contentsname}{Table des matières}
+\tableofcontents
+
+<!--____________________________________________________________________________
+
+<!---Titre du document--->
+# {.tabset}
+
+<!--____________________________________________________________________________
+
+<!---Importation et mise en forme--->
+\newpage
+
+## I. Importation et mise en forme 
+
+Pour importer le jeu de données, nous faisons appel à la focntion `read_xlsx()` de la librairie **readxl** qui facilite l'extraction de données d'Excel vers R. Après avoir importé la base de données sur laquelle nous allons travailler, nous pouvons procéder à l'affichage de quelques les premières lignes.
+
+```{r}
+library(readxl)
+
+base_tp2 <- read_xlsx("..//Donnees//Base TP2.xlsx")
+head(base_tp2)
+```
+
+Pour obtenir des informations détaillées sur une base de données, nous pouvons tiliser la fonction `str()`.
+
+```{r}
+str(base_tp2)
+```
+
+La base de données est composée de 53 observations et de 30 variables comme nous montre la ligne ci-après grâce à la fonction `dim()`
+
+```{r}
+dim(base_tp2)
+```
+
+<!--____________________________________________________________________________
+
+<!---Recodage et labélisation--->
+## II. Recodage et labélisation 
+
+### II.1. Recodage
+
+L'objectif de cette partie est de données des valeurs descriptives aux modalités. Pour ce faire, nous utilisons la fonction `recode()` de **dplyr**. La description des modalités de chaque variable est disposée dans le tableau ci-après: 
+:::table
+
+:::
+
+```{r}
+base_tp2$sexe = dplyr::recode_factor(base_tp2$sexe,
+                     '1'="Homme", 
+                     '2'="Femme")
+```
+
+```{r}
+class(base_tp2$sexe)
+typeof(base_tp2$sexe)
+```
+
+```{r}
+base_tp2$sit_mat = dplyr::recode_factor(base_tp2$sit_mat,
+                     '1'="Marie(e)", 
+                     '3'="Veuf(ve)", 
+                     '4'="Divorce(e)", 
+                     '5'="Separe(e)", 
+                     '6'="Celibataire")
+```
+
+```{r}
+base_tp2$si_chef_men = dplyr::recode_factor(base_tp2$si_chef_men,
+                     '1'="femme du chef de menage", 
+                     '3'="chef de menage", 
+                     '4'="fils-fille du chef de menage", 
+                     '99'="Autres")
+```
+
+```{r}
+base_tp2$ethnie = dplyr::recode_factor(base_tp2$ethnie,
+                     '1'="Wolof", 
+                     '2'="Pulaar/Toucouleur", 
+                     '3'="Serere", 
+                     '4'="Mandika/Bambara", 
+                     '5'="Soninke", 
+                     '6'="Diola", 
+                     '7'="Manjack", 
+                     '8'="Bainouk", 
+                     '9'="Maures", 
+                     '10'="Balante", 
+                     '77'="Autre")
+```
+
+```{r}
+base_tp2$occupation =
+  dplyr::recode_factor(base_tp2$occupation,
+                     '1'="Agriculture, Elevage, Sylvicuture, Peche", 
+                     '2'="Activites extractives", 
+                     '3'="Activites de fabrications (Artisanat)", 
+                     '4'="Activite de transformation", 
+                     '5'="Production et distribution d'electricite\
+                     et de gaz", 
+                     '6'="Production et distribution d'eau, assainissement,\
+                     traitement des dechets et depollution")
+```
+
+```{r}
+base_tp2$formation = dplyr::recode_factor(base_tp2$formation,
+                     '1'="Non scolarise", 
+                     '2'="Elementaire", 
+                     '3'="Moyen", 
+                     '4'="Secondaire", 
+                     '5'="Licence", 
+                     '6'="Master", 
+                     '7'="Doctorat", 
+                     '99'="Ne sait pas")
+```
+
+```{r}
+base_tp2$niveau_alphabs = dplyr::recode_factor(base_tp2$niveau_alphabs,
+                     '0'="Sans niveau", 
+                     '1'="Sait lire dans une langue", 
+                     '2'="Sait lire et ecrire dans une langue")
+```
+
+```{r}
+YesNo = function(data, var){
+  data[[var]] = dplyr::recode_factor(data[[var]],
+                     '0'="Non",
+                     '1'="Oui",
+                     .default = "Missing")
+}
+```
+
+```{r}
+## Types de variétés
+YesNo(base_tp2, "types_varietes_1")
+
+YesNo(base_tp2, "types_varietes_2")
+
+
+## Critères de choix de variétés
+vars2 = paste0("criteres_var_",1:16)
+
+for (var in vars2){
+  base_tp2[[var]] = YesNo(base_tp2, var)
+}
+```
+
+
+
+### II.2. Labélisation
+
+Labéliser une variable consiste à lui attribuer une description explicite afin de mieux comprendre sa signification. Pour ce faire, utilisons la fonction `apply_labels()` de la librairie **expss**.
+
+```{r, fig.width=5}
+library(expss)
+
+base_tp2 <- base_tp2|> expss::apply_labels(
+  region = "Region", departement = "Departement",
+  sexe = "Sexe", age = "Age",
+  sit_mat = "Situation matrimoniale", 
+  si_chef_men = "Statut dans le menage",
+  ethnie = "Ethnie", occupation = "Occupation",
+  formation = "Formation",
+  niveau_alphabs = "Niveau d'alphabetisation",
+  types_varietes = "Quelles sont les varietes que vous utilisez\
+  pour la production de sesame ?",
+  types_varietes_1 = "Traditionnelles",
+  types_varietes_2 = "Améliorées",
+  criteres_var = "Quels sont les criteres de choix des varietes de sesame ?",
+  criteres_var_1 = "Rendements eleves",
+  criteres_var_2 = "Taille des graines",
+  criteres_var_3 = "Resistantes aux maladies/ravageurs",
+  criteres_var_4 = "Tolerantes aux secheresses",
+  criteres_var_5 = "Tolerantes aux inondations",
+  criteres_var_6 = "Faible charge de travail",
+  criteres_var_7 = "Faibles quantites d'intrants",
+  criteres_var_8 = "Facile à transformer",
+  criteres_var_9 = "Haute teneur en huile",
+  criteres_var_10 = "Haut rendement apres transformation",
+  criteres_var_11 = "Demande sur le marché",
+  criteres_var_12 = "Bon gout",
+  criteres_var_13 = "Belle couleur",
+  criteres_var_14 = "Haut rendement en fourrages",
+  criteres_var_15 = "Qualité du fourrage",
+  criteres_var_16 = "Autres a specifier"
+)
+```
+
+<!--____________________________________________________________________________
+
+<!---Analyse descriptive--->
+## III. Analyse descriptive
+Dans cette partie,
+Pour automatiser les affichages de tableaux et de graphes dans le cadre de l'analyse descriptive, nous allons développer deux fonctions : univarie() et bivarie().
+
+### III.1. La fonction univarie
+
+Elle est conçue pour les analyses univariées. Elle prend en entrée la dataframe (**data**) et la variable à étudier (**var**). En fonction du type de cette variable, qu'elle soit quantitative ou qualitative, la fonction affiche soit un graphique (uniquement pour les variables qualitatives) soit un tableau. Pour les variables de type discrète, elle génère un tableau présentant les statistiques de tendance centrale telles que la moyenne, la médiane et les quartiles.\
+Pour les variables qualitatives, l'utilisateur peut choisir entre une sortie graphique ou tabulaire (valeur par défaut) ou graphique en spécifiant **plot=TRUE et tab=FALSE**. Par défaut, la sortie graphique affiche un diagramme circulaire, mais l'utilisateur peut opter pour un diagramme en barres en spécifiant **type="bar"**. Il est également possible d'afficher les graphiques en fonction des fréquences (**props=TRUE**) ou des effectifs (**props=FALSE**).\
+
+```{r}
+univarie <- function(data, var, tab = TRUE, 
+                     plot=FALSE,type="",props = TRUE)
+  {
+
+  ## Librairies
+  library(gtsummary)
+  library(ggplot2)
+  library(gt)
+  library(dplyr)
+  attach(data)
+  
+  ## Variable qualitative
+    if (is.character(var)==TRUE | is.factor(var)==TRUE){
+      
+      # Tableau des effectifs
+      df = data.frame(table(var))
+      names(df) = c("var","eff")
+
+      # Tableau des fréquences
+      dfprop = data.frame(round(proportions(table(var))*100,2))
+      names(dfprop) = c("var","freq")
+      
+      # Tableau de resultat
+      table = data.frame(var) |> tbl_summary()
+      
+      # Diagramme en secteurs
+      plot1 = ggplot(dfprop, 
+                aes(x = "", y = freq, fill =var)) +
+              geom_bar(stat = "identity", width=1) +
+              coord_polar(theta = "y", start = 0) +
+              geom_text(aes(label = paste(freq,"%")),color="white", 
+                        position = position_stack(vjust=0.5))+
+              labs(fill = attr(var,"label")) +
+              theme_void() 
+      
+      # Diagramme en barres avec les effectifs
+      plot2_eff = ggplot(df, 
+                aes(x = var, y = eff, fill = var)) +
+              geom_bar(stat = "identity", width=1) + 
+              labs(fill = attr(var,"label")) +
+              theme(legend.position = "none")
+      
+      # Diagramme en barres avec les fréquences
+      plot2_freq = ggplot(dfprop, 
+                aes(x = var, y = freq, fill = var)) +
+              geom_bar(stat = "identity", width=1) + 
+              labs(fill = attr(var,"label")) + 
+              theme(legend.position = "none")
+    }
+  
+  ## Variable discrète
+  else if (is.numeric(var)==TRUE){
+    
+      # Tri à plat
+      dftri = data.frame(var)
+      names(dftri) = "var"
+      
+      # Tableau des statistiques descriptives (Tendance centrale)
+      min = min(var, na.rm = TRUE)
+      q1 = quantile(var, na.rm = TRUE, 0.25)
+      median = median(var, na.rm = TRUE)
+      mean = mean(var, na.rm = TRUE)
+      sd = sd(var, na.rm = TRUE)
+      variance = sd^2
+      q3 = quantile(var, na.rm = TRUE, 0.75)
+      max = max(var, na.rm = TRUE)
+      stats =  c(min,q1,median,mean,sd,variance,q3,max)
+      statsLab = c("Minimum", "1er quartile","Médiane",
+                   "Moyenne", "Ecart-type", "Variance",
+                   "3e quartile", "Maximum")
+      table = data.frame(
+        Statistiques = statsLab,
+        Valeurs = stats
+      )
+  }
+  
+  ## Sorties : graphiques ou tableaux
+  if (tab == TRUE){result = table} 
+  
+  else if(plot == TRUE){
+    tab = FALSE
+    if (type == "pie"){result = plot1}
+    else{
+      if(props == FALSE){result = plot2_eff}
+      else{result = plot2_freq}
+      }
+  }
+  
+  else if (plot == TRUE){
+    tab = FALSE
+    result = plot2
+  }
+  else {result = print("Spécifier les arguments")}
+  
+  return(result)
+}
+```
+
+```{r}
+univarie(base_tp2, age)
+```
+
+```{r}
+univarie(base_tp2, ethnie, plot = TRUE, tab = FALSE, props = TRUE)
+```
+
+```{r}
+univarie(base_tp2, sexe, plot = TRUE, tab = FALSE, props = TRUE, type="pie")
+```
+
+```{r}
+univarie(base_tp2, formation, tab = TRUE)
+```
+```{r}
+univarie(base_tp2, niveau_alphabs, plot = TRUE, 
+         tab = FALSE, props = TRUE, type="pie")
+```
+
+
+### III.2. La fonction bivarie
+
+Elle prend en argument le jeu de données (**data**) et les deux variables ( var1 , var2 ). Il est à noter que cette fonction ne prend en charge que des variables qualitatives. Avec son option par défaut **all=TRUE** , elle affiche le tableau croisé ainsi que le diagramme des deux variables. Tout comme la fonction **univarie()**, elle peut afficher uniquement le graphique ou le tableau avec les mêmes options. Ces fonctions nous permettront de généraliser les statistiques descriptives en fonction du type de variable.
+
+```{r}
+bivarie <- function(df, var1, var2, all=TRUE){
+  library(gtsummary)
+  library(ggplot2)
+  attach(df)
+  
+  ## Variable qualitative
+  if (is.character(var1)==TRUE){
+    df_plot = data.frame(table(var1, var2))
+    names(df_plot) = c("Var1","Var2","Freq")
+
+    plot = ggplot(df_plot,
+               aes(x = Var1, y = Freq, fill = Var2)) +
+            geom_bar(stat = "identity", position = "fill")
+    
+    table = tbl_cross(df, df$var1, df$var2)
+  }
+  
+  ## Sorties : graphiques ou tableaux
+  if (all==TRUE){res = list(table,plot)} 
+  else if(all=="table"){res = table}
+  else if(all=="plot"){res = plot}
+  else {res = print("Choisir l'option table ou plot")}
+  
+  return(res)
+}
+```
+
+```{r}
+bivarie(base_tp2, sexe, ethnie)[[1]]
+```
+

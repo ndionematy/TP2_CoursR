@@ -1,0 +1,4 @@
+"0","base_tp2$niveau_alphabs = dplyr::recode_factor(base_tp2$niveau_alphabs,"
+"0","                     '0'=""Sans niveau"", "
+"0","                     '1'=""Sait lire dans une langue"", "
+"0","                     '2'=""Sait lire et ecrire dans une langue"")"

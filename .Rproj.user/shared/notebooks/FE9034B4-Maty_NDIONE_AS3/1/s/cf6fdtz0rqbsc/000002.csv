@@ -1,0 +1,5 @@
+"0","```r
+library(FactoMineR)
+acp <- PCA(iris[,1:4], ncp = 5, graph = FALSE)
+cah <- HCPC(acp, graph = FALSE)
+```"

@@ -1,0 +1,5 @@
+"0","```r
+
+# Shaping dendrogram
+fviz_dend(hc, k = 5,  rect = TRUE, show_labels = FALSE)
+```"

@@ -1,0 +1,7 @@
+"0","```r
+# Librairies
+library(factoextra)
+
+# Load iris data
+data(\"iris\")
+```"

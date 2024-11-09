@@ -1,0 +1,16 @@
+"0","```r
+# Centrer et réduire les données
+for (col in names(data)){
+  data[[col]] <- scale(data[[col]], center = TRUE, scale=TRUE)
+}
+
+# k-means clustering
+set.seed(145)
+res <- kmeans(data, centers = 4)
+
+# Mapping
+library(tmap)
+LyonIris$groupes <- paste(\"groupe\", res$cluster, sep=\" \")
+tm_shape(LyonIris) + 
+  tm_polygons(col = \"groupes\", palette=c(\"#EFBE89\", \"#4A6A9F\", \"#7DB47C\",\"#FAF29C\"),lty = 1, lwd = 0.1)
+```"

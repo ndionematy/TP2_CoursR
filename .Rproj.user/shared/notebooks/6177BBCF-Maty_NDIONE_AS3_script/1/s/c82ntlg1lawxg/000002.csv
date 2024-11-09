@@ -1,0 +1,11 @@
+"0","```r
+# Librairies
+library(geocmeans)
+library(sf)
+
+# Load data
+data(LyonIris)
+
+# LyonIris est un objet spatial, il faut donc extraire uniquement son DataFrame
+data <- st_drop_geometry(LyonIris[c(\"Lden\",\"NO2\",\"PM25\",\"VegHautPrt\",\"Pct0_14\",\"Pct_65\",\"Pct_Img\",\"TxChom1564\",\"Pct_brevet\",\"NivVieMed\")])
+```"

@@ -1,0 +1,7 @@
+"0","```r
+# Selection des variables quantitatives
+library(tidyverse)
+base <- dataset %>% 
+  select(minutes, points, rebounds, assists, fg_attempted, fg_made, ft_attempted, ft_made) %>% 
+na.omit()
+```"
